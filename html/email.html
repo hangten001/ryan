@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>email</title>
+    <link rel="stylesheet" href="../style.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            // https://dashboard.emailjs.com/admin/integration
+            emailjs.init('user_dvizJIbz3Fb87QuiVwuk7');//api
+        })();
+    </script>
+    <script type="text/javascript">
+        window.onload = function() {
+            document.getElementById('contact-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+               
+                // generate a five digit number for the contact_number variable
+                this.contact_number.value = Math.random() * 100000 | 0;
+                // these IDs from the previous steps
+                emailjs.sendForm('gmail', 'template_pg3wnuo', this)
+                    .then(function() {
+                        alert('Message has been sent successfully!');
+                    }, function(error) {
+                        console.log('FAILED...', error);
+                    });
+                // to clear the form table after submit    
+                document.getElementById("from").value = "";    
+                document.getElementById("email").value = "";    
+                document.getElementById("phone").value = "";    
+                document.getElementById("message").value = "";    
+            });
+            
+        }
+    </script>
+    <style>
+        body{
+            width: 50%;
+            margin-left: 20%;
+        }
+       a{
+           text-decoration: none;
+           color: #000;
+       }
+    </style>
+</head>
+<body>
+
+        <div class="formBx">
+            <form id="contact-form">
+                <h1>Email</h1>
+                <input type="hidden" name="contact_number">
+                <input type="text" id="from" name="from_name" placeholder="Full Name"><br>
+                <input type="email" id="email" name="email" placeholder="Email"><br>
+                <input type="text" id="phone" name="phone" placeholder="Phone Number"><br>
+                <textarea id="message" name="message" placeholder="Your Message..."></textarea><br>
+                <input class="btn" type="submit" value="Send">
+                <a href="../index.html"><h2>Home</h2></a>
+            </form>
+        </div>
+        
+</body>
+</html>
